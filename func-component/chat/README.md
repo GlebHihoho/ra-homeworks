@@ -66,11 +66,15 @@ const messages = [{
   text: 'Привет, Виктор. Как дела? Как идет работа над проектом?'
 }];
 
-<div className="chat">
-  <div className="chat-history">
-    <MessageHistory list={messages} />
-  </div>
-</div>
+const chat = (
+  <div className="chat">
+    <div className="chat-history">
+      <MessageHistory list={messages} />
+    </div>
+  </div>  
+);
+
+ReactDOM.render(chat, document.getElementById('root'));
 ```
 
 ## Реализация
@@ -85,4 +89,4 @@ const messages = [{
 
 Реализуйте компонент во вкладке JS(Babel). Перед началом работы сделайте форк этого пена:
 
-https://codepen.io/dfitiskin/pen/BZoVZo
+https://codepen.io/dfitiskin/pen/rwWOYw
