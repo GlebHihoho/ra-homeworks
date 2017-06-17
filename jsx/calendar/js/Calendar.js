@@ -72,18 +72,52 @@ function Colgroup() {
   )
 }
 
+function Thead() {
+
+  // Тут наверное не самый лучший способ создания списка
+
+  const week = {
+    "Понедельник" : "Пн",
+    "Вторник"     : "Вт",
+    "Среда"       : "Ср",
+    "Четверг"     : "Чт",
+    "Пятница"     : "Пт",
+    "Суббота"     : "Cб",
+    "Воскресенье" : "Вс"
+  };
+
+  const longDay = [
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота",
+    "Воскресенье"
+  ];
+
+  return (
+    <thead>
+      <tr>
+        {longDay.map(day => {
+          return <th scope="col" title={day}>{week[day]}</th>
+        })}
+      </tr>
+    </thead>
+  )
+}
+
+
 function Calendar(props) {
-  // Gleb:
-  // не совсем понятно где тут использовать деструктуризацию
-  // мы ведь передаём один объект содержащий дату
+  const { date } = props;
 
-  let weekDay = props.date.toLocaleString('ru', {weekday: 'long'});
-  let numDay  = props.date.toLocaleString('ru', {day: 'numeric'});
-  let month   = props.date.toLocaleString('ru', {month: 'long'});
-  let year    = props.date.toLocaleString('ru', {year: 'numeric'});
+  let weekDay = date.toLocaleString('ru', {weekday: 'long'});
+  let numDay  = date.toLocaleString('ru', {day: 'numeric'});
+  let month   = date.toLocaleString('ru', {month: 'long'});
+  let year    = date.toLocaleString('ru', {year: 'numeric'});
 
-  let thisYear  = props.date.getFullYear();
-  let thisMonth = props.date.getMonth();
+  let thisYear  = date.getFullYear();
+  let thisMonth = date.getMonth();
   let firstDay  = 1;
 
   let beforeThisMonth = thisMonth - 1;
@@ -158,17 +192,7 @@ function Calendar(props) {
           Придётся создавать отдельный массив в названиями дней для генерации
           элементов в цикле.
         */}
-        <thead>
-          <tr>
-            <th scope="col" title="Понедельник">Пн</th>
-            <th scope="col" title="Вторник">Вт</th>
-            <th scope="col" title="Среда">Ср</th>
-            <th scope="col" title="Четверг">Чт</th>
-            <th scope="col" title="Пятница">Пт</th>
-            <th scope="col" title="Суббота">Сб</th>
-            <th scope="col" title="Воскресенье">Вс</th>
-          </tr>
-        </thead>
+        <Thead />
         <tbody>
           {arrNumberDay.map(week => <Tr arr={week} dayNow={numDay} />)}
         </tbody>

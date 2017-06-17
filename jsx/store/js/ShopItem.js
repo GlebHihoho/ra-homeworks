@@ -1,5 +1,27 @@
 'use strict';
 
+function plan(symbol, price) {
+  price = price.toFixed(2);
+
+  switch (symbol) {
+    case '$' : return `${symbol}${price}`;
+    case '£' : return `${symbol}${price}`;
+    case '€' : return `${symbol}${price}`;
+    case 'Р' : return `${price}${symbol}`;
+    default  : return `${price}${symbol}`;
+  }
+}
+
+function CurrencyPrice(props) {
+  let {symbol, price} = props;
+
+  return (
+    <div className="price">
+      {plan(symbol, price)}
+    </div>
+  )
+}
+
 function ShopItem(props) {
   let {brand, title, description, descriptionFull, price, currency} = props.item;
 
@@ -15,11 +37,7 @@ function ShopItem(props) {
       <div className="divider"></div>
       <div className="purchase-info">
         <div className="price">
-          {/*
-            Честно говоря, я не знаю как правильно указывать знак валюты, до/после)
-            Думаю вы это хотели увидеть.
-          */}
-          {currency === `£` || currency === `$` ? currency + price.toFixed(2) : price.toFixed(2) + currency}
+          <CurrencyPrice symbol={currency} price={price}/>
         </div>
         <button>Добавить в корзину</button>
       </div>

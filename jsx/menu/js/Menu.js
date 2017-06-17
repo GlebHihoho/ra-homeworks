@@ -3,7 +3,11 @@
 function Menu(props) {
   const { items, opened = false } = props;
 
-  let list  = (
+  // Почему лучше использовать везде где возможно const?
+  // Это как-то связано с невозможнотью изменить переменные простых типов
+  // и приблизить JS к типизированному языку?)
+
+  const list  = (
     <nav>
       <ul>
         {items.map(item => <li><a href={item.href}>{item.title}</a></li>)}
