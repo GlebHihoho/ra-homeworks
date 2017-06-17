@@ -1,50 +1,50 @@
 'use strict';
 
-const link = 'https://neto-api.herokuapp.com/etsy';
+function Price(props) {
+  const {currency, price} = props;
 
-function load(link, done) {
-  const xhr = new XMLHttpRequest();
+  switch (currency) {
+    case 'USD' : return <p className="item-price">${price}</p>;
+    case 'EUR' : return <p className="item-price">€{price}</p>;
+    default    : return <p className="item-price">{price} {currency}</p>;
+  }
+}
 
-  xhr.open('GET', link, false);
-  xhr.send();
+function Quantity(props) {
+  const {quantity} = props;
 
-  if (xhr.status != 200) {
-    console.log(`${xhr.status} ${xhr.statusText}`);
-  } else {
-    done(xhr.responseText);
+  if (quantity <= 10) {
+    return <p className="item-quantity level-low">{quantity} left</p>;
+  }
+
+  if (quantity > 10 && quantity <= 20) {
+    return <p className="item-quantity level-medium">{quantity} left</p>;
+  }
+
+  if (quantity > 20) {
+    return <p className="item-quantity level-high">{quantity} left</p>;
   }
 }
 
 function Listing({items}) {
-  console.log(items);
-
   return (
     <div class="item-list">
       {items.map(item => {
         return (
-          <div class="item" key={item.listing_id}>
-            <div class="item-image">
+          <div className="item" key={item.listing_id}>
+            <div className="item-image">
               <a href={item.url}>
                 <img src={item.MainImage.url_570xN} />
               </a>
             </div>
-            <div class="item-details">
-              <p class="item-title">{item.title}</p>
-              <p class="item-price">{item.currency_code}{item.price}</p>
-              <p class="item-quantity level-medium">{item.quantity} left</p>
+            <div className="item-details">
+              <p className="item-title">{item.title}</p>
+              <Price currency={item.currency_code} price={item.price} />
+              <Quantity quantity={item.quantity} />
             </div>
           </div>
         )
       })}
     </div>
-
   )
-}
-
-function parse(listStr) {
-  let list = JSON.parse(listStr);
-
-  ReactDOM.render(<Listing items={list} />, document.getElementById('root'));
-}
-
-load(link, parse)
+};
