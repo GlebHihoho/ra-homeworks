@@ -7,7 +7,7 @@ function Stars({count = 0}) {
 
   return (
     <ul className="card-body-stars u-clearfix">
-      {Array(count).fill().map(star => <li><Star /></li>)}
+      {Array(count).fill(<li><Star /></li>)}
     </ul>
   );
 }
