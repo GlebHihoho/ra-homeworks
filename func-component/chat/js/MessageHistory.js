@@ -5,20 +5,18 @@ function MessageHistory({list = []}) {
     return null;
   }
 
+  const components = {
+    response : Response,
+    message  : Message,
+    typing   : Typing
+  }
+
   return (
     <ul>
       {list.map(element => {
-        if (element.type === 'response') {
-          return <Response from={element.from} message={element} />
-        }
+        const Component = components[element.type];
 
-        if (element.type === 'message') {
-          return <Message from={element.from} message={element} />
-        }
-
-        if (element.type === 'typing') {
-          return <Typing from={element.from} message={element} />
-        }
+        return <Component from={element.from} message={element} />;
       })}
     </ul>
   );

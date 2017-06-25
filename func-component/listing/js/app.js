@@ -13,17 +13,17 @@ function Price(props) {
 function Quantity(props) {
   const {quantity} = props;
 
+  let classQuantity = '';
+
   if (quantity <= 10) {
-    return <p className="item-quantity level-low">{quantity} left</p>;
+    classQuantity = 'level-low';
+  } else if (quantity > 10 && quantity <= 20) {
+    classQuantity = 'level-medium';
+  } else if (quantity > 20) {
+    classQuantity = 'level-high';
   }
 
-  if (quantity > 10 && quantity <= 20) {
-    return <p className="item-quantity level-medium">{quantity} left</p>;
-  }
-
-  if (quantity > 20) {
-    return <p className="item-quantity level-high">{quantity} left</p>;
-  }
+  return <p className={"item-quantity " + classQuantity}>{quantity} left</p>;
 }
 
 function Listing({items}) {
