@@ -3,11 +3,24 @@
 function Price(props) {
   const {currency, price} = props;
 
-  switch (currency) {
-    case 'USD' : return <p className="item-price">${price}</p>;
-    case 'EUR' : return <p className="item-price">€{price}</p>;
-    default    : return <p className="item-price">{price} {currency}</p>;
+  let currencySing = '';
+  let currencyCopy = currency;
+
+  if (currencyCopy === 'USD') {
+    currencySing = '$';
+    currencyCopy = '';
+  } else if (currencyCopy === 'EUR') {
+    currencySing = '€';
+    currencyCopy = '';
   }
+
+  return <p className="item-price">{currencySing}{price}{currencyCopy}</p>;
+
+  // switch (currency) {
+  //   case 'USD' : return <p className="item-price">${price}</p>;
+  //   case 'EUR' : return <p className="item-price">€{price}</p>;
+  //   default    : return <p className="item-price">{price} {currency}</p>;
+  // }
 }
 
 function Quantity(props) {
